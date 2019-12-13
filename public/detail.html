@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿里百秀-发现生活，发现美!</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="topnav">
+            <ul>
+                <li><a href="javascript:;"><i class="fa fa-glass"></i>奇趣事</a></li>
+                <li><a href="javascript:;"><i class="fa fa-phone"></i>潮科技</a></li>
+                <li><a href="javascript:;"><i class="fa fa-fire"></i>会生活</a></li>
+                <li><a href="javascript:;"><i class="fa fa-gift"></i>美奇迹</a></li>
+            </ul>
+        </div>
+        <div class="header">
+            <h1 class="logo">
+                <a href="index.html"><img src="assets/img/logo.png" alt=""></a>
+            </h1>
+            <ul class="nav">
+                <li><a href="javascript:;"><i class="fa fa-glass"></i>奇趣事</a></li>
+                <li><a href="javascript:;"><i class="fa fa-phone"></i>潮科技</a></li>
+                <li><a href="javascript:;"><i class="fa fa-fire"></i>会生活</a></li>
+                <li><a href="javascript:;"><i class="fa fa-gift"></i>美奇迹</a></li>
+            </ul>
+            <div class="search">
+                <form>
+                    <input type="text" class="keys" placeholder="输入关键字">
+                    <input type="submit" class="btn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="aside">
+            <div class="widgets">
+                <h4>搜索</h4>
+                <div class="body search">
+                    <form>
+                        <input type="text" class="keys" placeholder="输入关键字">
+                        <input type="submit" class="btn" value="搜索">
+                    </form>
+                </div>
+            </div>
+            <div class="widgets">
+                <h4>随机推荐</h4>
+                <ul class="body random">
+
+                </ul>
+            </div>
+            <div class="widgets">
+                <h4>最新评论</h4>
+                <ul class="body discuz">
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_1.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_1.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_2.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_1.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_2.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="avatar">
+                                <img src="uploads/avatar_1.jpg" alt="">
+                            </div>
+                            <div class="txt">
+                                <p>
+                                    <span>鲜活</span>2020-02-01说:
+                                </p>
+                                <p>挺会玩的</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="article">
+
+            </div>
+            <style type="text/css">
+                .comment {
+                    margin-bottom: 20px;
+                }
+                
+                .comment textarea {
+                    box-sizing: border-box;
+                    padding: 10px;
+                    width: 100%;
+                    height: 80px;
+                    display: block;
+                }
+                
+                .comment input {
+                    width: 100px;
+                    height: 30px;
+                    margin-top: 10px;
+                }
+            </style>
+            <div class="comment" style="display: none;" id="commentBox">
+                <form>
+                    <textarea></textarea>
+                    <input type="submit" value="提交评论">
+                </form>
+            </div>
+            <div class="panel hots">
+                <h3>热门推荐</h3>
+                <ul id="recommendBox">
+
+                </ul>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
+        </div>
+    </div>
+    <script src="assets/vendors/jquery/jquery.js"></script>
+    <script src="assets/vendors/art-template/template-web.js"></script>
+    <!-- ajax加载渲染 -->
+    <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
+    <script src="assets/vendors/nprogress/nprogress.js"></script>
+    <script>
+        // ajax加载开始时
+        $(document).ajaxStart(function() {
+                NProgress.start()
+            })
+            // ajax加载完成时
+        $(document).ajaxComplete(function() {
+            NProgress.done()
+        })
+    </script>
+    <!-- 热门推荐获取数据功能· -->
+    <script src="assets/js/recommend.js"></script>
+
+    <!-- 详情页模板 -->
+    <script type="text/html" id="detailTpl">
+        <div class="breadcrumb">
+            <dl>
+                <dt>当前位置：</dt>
+                <dd><a href="javascript:;">{{category.title}}</a></dd>
+                <dd>{{title}}</dd>
+            </dl>
+        </div>
+        <h2 class="title">
+            <a href="javascript:;">{{title}}</a>
+        </h2>
+        <div style="margin:10px">
+            {{content}}
+        </div>
+        <div class="meta">
+            <span>{{author.nickName}} 发布于{{createTime}}</span>
+            <span>分类: <a href="javascript:;">{{category.title}}</a></span>
+            <span>阅读: ({{meta.views}})</span>
+            <span>评论: ({{meta.conments}})</span>
+            <a href="javascript:;" id="like">赞</a>
+        </div>
+    </script>
+    <script>
+        // 是否需要人工批准
+        var review
+        var obj = new URLSearchParams(location.search)
+        var id = obj.get('id') //获取地址栏传送过来的id值(列表页传递)
+            // console.log(id);
+        $.ajax({
+            type: 'get',
+            url: '/posts/' + id,
+            success: function(res) {
+                // console.log(res);//返回详情页数据对象
+                var html = template('detailTpl', res)
+                $(".article").html(html)
+            }
+        })
+
+        // 点赞添加事件
+        $(".article").on('click', '#like', function() {
+            //  发送请求 后台处理完后返回值
+            $.ajax({
+                type: 'POST',
+                url: '/posts/fabulous/' + id,
+                success: function(res) {
+                    alert('点赞成功，感谢支持！')
+
+                }
+            })
+        })
+
+        // 如果管理员关闭了评论功能 则隐藏评论窗口
+        // 通过ajax获取网站配置信息  如果评论是true 让评论显示出啦
+        $.ajax({
+            type: 'get',
+            url: '/settings',
+            success: function(res) {
+                review = res.review
+                if (res.comment == true) {
+                    $("#commentBox").show()
+                }
+            }
+        })
+
+        // 当评论表单发生提交行为的时候
+        $("#commentBox form").on('submit', function() {
+            // 服务器端要求传入三个参数
+            // 1.评论内容
+            var content = $(this).find('textarea').val()
+                // 2. 文章的id posid
+                // 3. 评论是否经过审核
+            if (review) {
+                state = 0 //要经过人工审核
+            } else {
+                state = 1 //不要经过人工审核
+            }
+
+            // 向服务器端发送请求，执行添加操作
+            $.ajax({
+                type: 'post',
+                url: '/comments',
+                data: {
+                    post: id,
+                    content: content,
+                    state: state
+                },
+                success: function(res) {
+                    alert('评论成功！')
+                    location.reload()
+                },
+                error: function(res) {
+                    alert('评论失败！')
+                }
+            })
+            return false
+        })
+    </script>
+    <!-- 实现分类列表的 数据渲染功能 搜索框功能 随机推荐 最新评论-->
+    <script src="assets/js/public.js"></script>
+</body>
+
+</html>

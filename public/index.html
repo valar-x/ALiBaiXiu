@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>阿里百秀-发现生活，发现美!</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/swiper.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
+    <style>
+        .swiper-container {
+            width: 100%;
+            /* height: 100%; */
+        }
+        
+        .swiper-slide {
+            position: relative;
+        }
+        
+        .swiper-slide span {
+            position: absolute;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1 class="logo">
+                <a href="index.html"><img src="assets/img/logo.png" alt=""></a>
+            </h1>
+            <ul class="nav" id="navBox">
+
+
+            </ul>
+            <div class="search">
+                <form>
+                    <input type="text" class="keys" placeholder="输入关键字">
+                    <input type="submit" class="btn" value="搜索">
+                </form>
+            </div>
+        </div>
+        <div class="aside">
+            <div class="widgets">
+                <h4>搜索</h4>
+                <div class="body search">
+                    <form>
+                        <input type="text" class="keys" placeholder="输入关键字">
+                        <input type="submit" class="btn" value="搜索">
+                    </form>
+                </div>
+            </div>
+            <div class="widgets">
+                <h4>随机推荐</h4>
+                <ul class="body random">
+
+
+                </ul>
+            </div>
+            <div class="widgets">
+                <h4>最新评论</h4>
+                <ul class="body discuz">
+
+
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="swiper-container">
+                <div class="swiper-wrapper" id="slidesBox">
+
+
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination"></div>
+                <!-- 如果需要导航按钮 -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+            <div class="panel hots">
+                <h3>热门推荐</h3>
+                <ul id="recommendBox">
+
+
+                </ul>
+            </div>
+            <div class="panel new" id="newsBox">
+                <h3>最新发布</h3>
+
+
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
+        </div>
+    </div>
+    <script src="assets/vendors/jquery/jquery.js"></script>
+    <script src="assets/vendors/swipe/swiper.js"></script>
+    <script src="assets/vendors/art-template/template-web.js"></script>
+    <!-- ajax加载渲染 -->
+    <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
+    <script src="assets/vendors/nprogress/nprogress.js"></script>
+    <script>
+        // ajax加载开始时
+        $(document).ajaxStart(function() {
+                NProgress.start()
+            })
+            // ajax加载完成时
+        $(document).ajaxComplete(function() {
+            NProgress.done()
+        })
+    </script>
+    <!-- 轮播图数据目模板 -->
+    <script type="text/html" id="solidesTpl">
+        {{each data}}
+        <div class="swiper-slide">
+            <img src="{{$value.image}}">
+            <span>{{$value.title}}</span>
+        </div>
+        {{/each}}
+    </script>
+
+    <script>
+        // 完成轮播图功能
+        $.ajax({
+            type: 'get',
+            url: '/slides',
+            success: function(res) {
+                // console.log(res);
+                // 使用模板拼接字符串
+                var html = template('solidesTpl', {
+                    data: res
+                })
+                $("#slidesBox").html(html)
+                var swiper = new Swiper('.swiper-container', {
+                    loop: true,
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    pagination: {
+                        el: '.swiper-pagination'
+                    },
+                });
+            }
+        })
+    </script>
+    <!-- 实现热门推荐功能 -->
+    <script src="assets/js/recommend.js"></script>
+    <!-- 实现最新数据功能 -->
+    <script type="text/html" id="newsTpl">
+        {{each data}}
+        <div class="entry">
+            <div class="head">
+                <span class="sort">{{$value.category.title}}</span>
+                <a href="detail.html?id={{$value._id}}">{{$value.title}}</a>
+            </div>
+            <div class="main">
+                <p class="info">{{$value.author.nickName}}发表于{{$value.createAt}}</p>
+                <p class="brief">
+                    {{$value.content.substr(0,80)}}
+                </p>
+                <p class="extra">
+                    <span class="reading">阅读({{$value.meta.views}})</span>
+                    <span class="comment">评论({{$value.meta.comments}})</span>
+                    <a href="detail.html?id={{$value._id}}" class="like">
+                        <i class="fa fa-thumbs-up"></i>
+                        <span>赞({{$value.meta.likes}})</span>
+                    </a>
+                    <a href="javascript:;" class="tags">
+                    分类：<span>{{$value.category.title}}</span>
+                  </a>
+                </p>
+                <a href="detail.html?id={{$value._id}}" class="thumb">
+                    <img src="{{$value.thumbnail}}" alt="">
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    </script>
+    <script>
+        $.ajax({
+            type: 'get',
+            url: '/posts/lasted',
+            success: function(res) {
+                // console.log(res);
+                var html = template('newsTpl', {
+                    data: res
+                })
+                $("#newsBox").append(html)
+
+            }
+        })
+    </script>
+    <!-- 实现分类列表的 数据渲染功能  搜索框功能-->
+    <script src="assets/js/public.js"></script>
+
+
+</body>
+
+</html>

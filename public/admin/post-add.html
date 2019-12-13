@@ -1,0 +1,294 @@
+<script src="/login/status"></script>
+<script>
+    if (!isLogin) {
+        location.href = 'login.html'
+    }
+</script>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <title>Add new post &laquo; Admin</title>
+    <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+
+<body>
+
+    <div class="main">
+        <nav class="navbar">
+            <button class="btn btn-default navbar-btn fa fa-bars"></button>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="password-reset.html"><i class="fa fa-user"></i>修改密码</a></li>
+                <li><a href="login.html" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>
+            </ul>
+        </nav>
+        <div class="container-fluid" id="modifyBox">
+            <div class="page-title">
+                <h1>写文章</h1>
+            </div>
+            <!-- 有错误信息时展示 -->
+            <!-- <div class="alert alert-danger">
+        <strong>错误！</strong>发生XXX错误
+      </div> -->
+            <form class="row" id="addForm">
+                <div class="col-md-9">
+                    <div class="form-group">
+                        <label for="title">标题</label>
+                        <input name="title" id="title" class="form-control input-lg" type="text" placeholder="文章标题">
+                    </div>
+                    <div class="form-group">
+                        <label for="content">内容</label>
+                        <textarea name="content" id="content" class="form-control input-lg" cols="30" rows="10" placeholder="内容"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="feature">文章封面</label>
+                        <!-- show when image chose -->
+                        <img class="help-block thumbnail" style="display: none" id="preview">
+                        <input id="feature" class="form-control" type="file">
+                        <!-- 设置隐藏域:手机表单数据的时候，把文件路径也携带过去 -->
+                        <input type="hidden" name="thumbnail" id="thumbnail">
+                    </div>
+                    <div class="form-group">
+                        <label for="category">所属分类</label>
+                        <select name="category" id="category" class="form-control">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="created">发布时间</label>
+                        <input name="createAt" id="created" class="form-control" type="date">
+                    </div>
+                    <div class="form-group">
+                        <label for="status">状态</label>
+                        <select name="state" id="status" class="form-control">
+                            <option value="0">草稿</option>
+                            <option value="1">已发布</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="aside">
+        <div class="profile">
+            <img class="avatar">
+            <h3 class="name"></h3>
+        </div>
+        <ul class="nav">
+            <li>
+                <a href="index.html"><i class="fa fa-dashboard"></i>仪表盘</a>
+            </li>
+            <li class="active">
+                <a href="#menu-posts" data-toggle="collapse">
+                    <i class="fa fa-thumb-tack"></i>文章<i class="fa fa-angle-right"></i>
+                </a>
+                <ul id="menu-posts" class="collapse in">
+                    <li><a href="posts.html">所有文章</a></li>
+                    <li class="active"><a href="post-add.html">写文章</a></li>
+                    <li><a href="categories.html">分类目录</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="comments.html"><i class="fa fa-comments"></i>评论</a>
+            </li>
+            <li>
+                <a href="users.html"><i class="fa fa-users"></i>用户</a>
+            </li>
+            <li>
+                <a href="#menu-settings" class="collapsed" data-toggle="collapse">
+                    <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
+                </a>
+                <ul id="menu-settings" class="collapse">
+                    <li><a href="slides.html">图片轮播</a></li>
+                    <li><a href="settings.html">网站设置</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script src="../assets/vendors/jquery/jquery.js"></script>
+    <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+    <script src="../assets/js/common.js"></script>
+    <script src="../assets/vendors/art-template/template-web.js"></script>
+    <!--下拉列表 模板 -->
+    <script type="text/html" id="categoryTpl">
+        {{each data}}
+        <option value="{{$value._id}}">{{$value.title}}</option>
+        {{/each}}
+    </script>
+
+    <!-- 编辑页面文章模板 -->
+    <script type="text/html" id="modifyTpl">
+        <div class="page-title">
+            <h1>编辑文章</h1>
+        </div>
+        <form class="row" id="modifyForm" data-id="{{_id}}">
+            <div class="col-md-9">
+                <div class="form-group">
+                    <label for="title">标题</label>
+                    <input value="{{title}}" name="title" id="title" class="form-control input-lg" type="text" placeholder="文章标题">
+                </div>
+                <div class="form-group">
+                    <label for="content">内容</label>
+                    <textarea name="content" id="content" class="form-control input-lg" cols="30" rows="10" placeholder="内容">{{content}}</textarea>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="feature">文章封面</label>
+                    <!-- 设置隐藏域:手机表单数据的时候，把文件路径也携带过去 -->
+                    <input type="hidden" name="thumbnail" id="thumbnail" value="{{thumbnail}}">
+                    <!-- show when image chose -->
+                    {{if thumbnail}}
+                    <img class="help-block thumbnail" src="{{thumbnail}}" id="preview"> {{else}}
+                    <img class="help-block thumbnail" style="display: none" id="preview"> {{/if}}
+                    <input id="feature" class="form-control" type="file">
+
+                </div>
+                <div class="form-group">
+                    <label for="category">所属分类</label>
+                    <select name="category" id="category" class="form-control">
+                        <!-- 对所有分类列表进行遍历 -->
+                        <!-- 判断如果当前这一次遍历的_id刚好和当前查出来的文章的分类的_id相等，说明就这个分类 -->
+                        {{each categories}}
+                        <option value="{{$value._id}}" {{category._id==$value._id?'selected':''}}>{{$value.title}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="created">发布时间</label>
+                    <!-- 修改日期格式 -->
+                    <input value="{{createAt.split('T')[0]}}" name="createAt" id="created" class="form-control" type="date">
+                </div>
+                <div class="form-group">
+                    <label for="status">状态</label>
+                    <select name="state" id="status" class="form-control">
+              <option value="0" {{state==0?'selected':''}}>草稿</option>
+              <option value="1" {{state==1?'selected':''}}>已发布</option>
+            </select>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">修改</button>
+                </div>
+            </div>
+        </form>
+    </script>
+    <script>
+        // 获取URL后面参数的值
+        function getUrlParams(key) {
+            var arr = location.search.substr(1).split('&')
+            for (var i = 0; i < arr.length; i++) {
+                var arr1 = arr[i].split('=')
+                if (arr1[0] == key) {
+                    return arr1[1]
+                }
+            }
+            return -1
+        }
+
+        // 获取浏览器地址栏中的ID参数
+        var id = getUrlParams('id')
+        var categories = null
+        if (id != -1) {
+            // 获取当前要编辑的这一个文章数据
+            $.ajax({
+                type: 'get',
+                url: '/posts/' + id,
+                success: function(res) {
+                    $.ajax({
+                        type: 'get',
+                        url: '/categories',
+                        success: function(categories) {
+                            // 赋值
+                            res.categories = categories
+                                // console.log(res);
+                            var html = template('modifyTpl', res)
+                                // console.log(html);
+                            $("#modifyBox").html(html)
+                        }
+                    })
+                }
+            })
+        }
+
+        // 修改完分类列表页面 给表单设置提交事件(事件委托)
+        $("#modifyBox").on('submit', '#modifyForm', function() {
+            var fd = $(this).serialize()
+            var id = $(this).attr('data-id') //设置自定义属性
+            $.ajax({
+                    type: 'put',
+                    url: '/posts/' + id,
+                    data: fd,
+                    success: function(res) {
+                        // 修改完之后将页面跳转至文章列表页增加用户体验
+                        location.href = 'posts.html'
+                    }
+                })
+                // 阻止表单默认提交行为哦
+            return false
+
+        })
+
+        // 获取文章分类列表
+        $.ajax({
+            type: 'get',
+            url: '/categories',
+            success: function(res) {
+                // console.log(res);//数组
+                var html = template('categoryTpl', {
+                    data: res
+                })
+                $("#category").html(html)
+                categories = res
+            }
+        })
+
+
+        // a实现（图片）文件上传功能
+        $('#modifyBox').on('change', '#feature', function() {
+            // 创建formdata对象 实现二进制文件数据上传
+            var fd = new FormData()
+            fd.append('cover', this.files[0])
+            $.ajax({
+                type: 'post',
+                url: "/upload",
+                data: fd,
+                // 告诉ajax不要处理data属性对应的参数
+                processData: false,
+                // 不要设置参数类型
+                contentType: false,
+                success: function(res) {
+                    // console.log(res);
+                    $("#preview").attr('src', res[0].cover).show()
+                    $("#thumbnail").val(res[0].cover)
+                }
+            })
+        })
+
+        // 当文章表单 设置提交事件的时候
+        $("#addForm").on('submit', function() {
+            var data = $(this).serialize()
+            $.ajax({
+                    type: 'post',
+                    url: '/posts',
+                    data,
+                    success: function(res) {
+                        location.href = 'posts.html'
+                    }
+                })
+                // 阻止表单默认提交行为
+            return false
+        })
+    </script>
+</body>
+
+</html>

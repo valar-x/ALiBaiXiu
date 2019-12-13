@@ -1,0 +1,9 @@
+将数据导入数据库命令:
+mongoimport -d alibaixiu -c categories --file .\categories.json
+mongoimport -d alibaixiu -c posts --file .\posts.json
+mongoimport -d alibaixiu -c comments --file .\comments.json
+mongoimport -d alibaixiu -c users --file .\users.json
+mongoimport -d alibaixiu -c slides --file .\slides.json
+在阿里百秀根目录下执行命令：
+npm i （下载依赖）
+node app.js(注意，不要用nodemon)
